@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="leaflet/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/leaflet.ie.css" /><![endif]-->
+
+		<script src="leaflet/leaflet.js"></script>
+		<script src="leaflet.nauticscale/leaflet.nauticscale.js"></script>
+	</head>
+	
+	<body>
+		<div id="map" style="width: 640px; height: 480px;"></div>
+
+		<script type="text/javascript">
+
+			var layerOsm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	          subdomains: ["a", "b", "c"],
+	          maxZoom: 18
+	        });
+
+			
+			var map = new L.Map('map', {
+				fullscreenControl: true
+			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+
+			map.addControl(new L.Control.ScaleNautic({
+				metric: false,
+				imperial: false,
+				nautic: true
+			}));
+		</script>
+	</body>
+</html>

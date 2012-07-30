@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="leaflet/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/leaflet.ie.css" /><![endif]-->
+
+		<script src="leaflet/leaflet.js"></script>
+		<script src="leaflet.customscale/leaflet.customscale.js"></script>
+	</head>
+	
+	<body>
+		<div id="map" style="width: 640px; height: 480px;"></div>
+
+		<script type="text/javascript">
+
+			var layerOsm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	          subdomains: ["a", "b", "c"],
+	          maxZoom: 18
+	        });
+
+			
+			var map = new L.Map('map', {
+				fullscreenControl: true
+			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+
+			map.addControl(new L.Control.ScaleCustom({
+				metric: true,
+				imperial: true,
+				// Custom scale in nautical miles
+				custom: function(maxMeters, leafletDefaultRoundingFunction) {
+					var maxNauticalMiles = maxMeters / 1852, 
+						nauticalMiles;
+
+					if(maxMeters >= 1852) {
+						nauticalMiles = leafletDefaultRoundingFunction(maxNauticalMiles);
+					} else {
+						nauticalMiles = maxNauticalMiles > 0.1 ? Math.round(maxNauticalMiles * 10) / 10 : Math.round(maxNauticalMiles * 100) / 100;
+					}
+
+					return {
+						caption: nauticalMiles + ' nm',
+						ratio: nauticalMiles / maxNauticalMiles
+					}
+				}
+			}));
+		</script>
+	</body>
+</html>
