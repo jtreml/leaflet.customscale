@@ -4,7 +4,7 @@ L.Control.ScaleNautic = L.Control.Scale.extend({
 	},
 
 	_addScales: function(options, className, container) {
-		this.__proto__._addScales(options, className, container);
+		L.Control.Scale.prototype._addScales.call(this, options, className, container);
 
 		var options = this.options;
 		if (options.nautic) {
@@ -13,7 +13,7 @@ L.Control.ScaleNautic = L.Control.Scale.extend({
 	},
 
 	_updateScales: function (options, maxMeters) {
-		this.__proto__._updateScales(options, maxMeters);
+		L.Control.Scale.prototype._updateScales.call(this, options, maxMeters);
 
 		var options = this.options;
 		if (options.nautic && maxMeters) {
@@ -26,7 +26,7 @@ L.Control.ScaleNautic = L.Control.Scale.extend({
 			maxNauticalMiles = maxMeters / 1852, nauticalMiles;
 
 		if(maxMeters >= 1852) {
-			nauticalMiles = this.__proto__._getRoundNum(maxNauticalMiles);
+			nauticalMiles = L.Control.Scale.prototype._getRoundNum.call(this, maxNauticalMiles);
 		} else {
 			nauticalMiles = maxNauticalMiles > 0.1 ? Math.round(maxNauticalMiles * 10) / 10 : Math.round(maxNauticalMiles * 100) / 100;
 		}
