@@ -31,7 +31,6 @@ L.Control.ScaleNautic = L.Control.Scale.extend({
 			nauticalMiles = maxNauticalMiles > 0.1 ? Math.round(maxNauticalMiles * 10) / 10 : Math.round(maxNauticalMiles * 100) / 100;
 		}
 
-		console.log(maxMeters + " " + nauticalMiles);
 		L.Control.Scale.prototype._updateScale.call(this, this._nScale, nauticalMiles + " nm", nauticalMiles / maxNauticalMiles);
 
 
